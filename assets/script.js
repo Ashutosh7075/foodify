@@ -1,33 +1,42 @@
-// JavaScript to handle page navigation
 document.addEventListener('DOMContentLoaded', () => {
-    const welcomeScreen = document.getElementById('welcome-screen');
-    const loginScreen = document.getElementById('login-screen');
-    const mainApp = document.getElementById('main-app');
+    // Page transitions
+    const pages = document.querySelectorAll('.page');
+    const proceedBtn = document.getElementById('proceed-btn');
+    const loginForm = document.getElementById('login-form');
 
-    // Show Login Page after Welcome
-    document.getElementById('welcome-next').addEventListener('click', () => {
-        welcomeScreen.classList.remove('active');
-        loginScreen.classList.add('active');
+    // Welcome -> Login
+    proceedBtn.addEventListener('click', () => {
+        transitionPage('welcome-screen', 'login-screen');
     });
 
-    // Show Main App after Login
-    document.getElementById('login-form').addEventListener('submit', (event) => {
-        event.preventDefault();
-        loginScreen.classList.remove('active');
-        mainApp.classList.add('active');
+    // Login -> Main App
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        transitionPage('login-screen', 'main-app');
+        loadRecipes(); // Load recipes after login
     });
 
-    // Navigation within Main App
-    const navLinks = document.querySelectorAll('nav a');
-    const pages = document.querySelectorAll('#main-app .page');
+    // Recipe fetching function
+    async function loadRecipes() {
+        const recipeContainer = document.getElementById('recipe-container');
+        const response = await fetch('https://api.spoonacular.com/recipes/random?number=6&apiKey=YOUR_API_KEY');
+        const data = await response.json();
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = link.getAttribute('data-page');
-
-            pages.forEach(page => page.classList.remove('active'));
-            document.getElementById(target).classList.add('active');
+        data.recipes.forEach(recipe => {
+            const recipeCard = document.createElement('div');
+            recipeCard.classList.add('recipe-card');
+            recipeCard.innerHTML = `
+                <img src="${recipe.image}" alt="${recipe.title}">
+                <h3>${recipe.title}</h3>
+                <p>${recipe.summary.slice(0, 100)}...</p>
+            `;
+            recipeContainer.appendChild(recipeCard);
         });
-    });
+    }
+
+    // Transition function
+    function transitionPage(fromId, toId) {
+        document.getElementById(fromId).classList.remove('active');
+        document.getElementById(toId).classList.add('active');
+    }
 });
