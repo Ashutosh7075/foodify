@@ -1,0 +1,99 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.page {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: opacity 0.5s ease;
+}
+
+.page.active {
+    display: flex;
+    opacity: 1;
+}
+
+#welcome-screen {
+    background: #4caf50;
+    color: white;
+}
+
+#welcome-screen .welcome-content button {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    background: white;
+    color: #4caf50;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#login-screen {
+    background: #f4f4f4;
+    color: #333;
+}
+
+#login-screen .login-content {
+    width: 300px;
+}
+
+#login-screen input {
+    display: block;
+    width: 100%;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#login-screen button {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    background: #4caf50;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#main-app {
+    background: #fff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #4caf50;
+    color: white;
+}
+
+header .logo img {
+    height: 50px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.hero {
+    padding: 2rem;
+    text-align: center;
+    color: #333;
+}
